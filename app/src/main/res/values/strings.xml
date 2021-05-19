@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">BetterWay App</string>
+    <string name="save">Save</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="user_name">User Name</string>
+    <string name="add_new_contact">Add New Contact</string>
+    <string name="click_new_mentor">Click to add a new mentor contact</string>
+    <string name="click_new_friends">Click to add new friends</string>
+    <string name="mentors">Mentors</string>
+    <string name="friends">Friends</string>
+    <string name="family">Family</string>
+    <string name="textview">TextView</string>
+</resources>
