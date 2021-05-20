@@ -9,20 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BetterWayApp">
-
-        <activity
-            android:name=".MentorsActivity"
-            android:label="@string/mentors" />
-        <activity
-            android:name=".FriendsActivity"
-            android:label="@string/friends" />
-        <activity android:name=".BaseActivity">
+        <activity android:name=".auth.RegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".auth.LoginActivity" />
+        <activity
+            android:name=".MentorsActivity"
+            android:label="@string/mentors" />
+        <activity
+            android:name=".FriendsActivity"
+            android:label="@string/friends" />
+        <activity android:name=".BaseActivity"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/family" />
