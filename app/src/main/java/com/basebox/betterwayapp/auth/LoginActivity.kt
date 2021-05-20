@@ -27,17 +27,17 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
+        userRepo = UserRepository(this)
+
         emailUsed = binding?.email?.editText?.text.toString()
         passwordUsed = binding?.password?.editText?.text.toString()
         email = "martinirex@yahoo.co.uk"
         password = "adminpassword"
 
-
-
         binding?.btnLogin?.setOnClickListener {
        val user = userRepo.getUser(emailUsed!!, passwordUsed!!)
             Log.d(TAG, "Values of userEmail $emailUsed and userPassword $passwordUsed")
-            if (user.email != null && user.password != null){
+            if (!user.toString().isBlank()){
                 val intent = Intent(this, BaseActivity::class.java)
 
                 startActivity(intent)
@@ -45,6 +45,12 @@ class LoginActivity : AppCompatActivity() {
             }else {
                 Toast.makeText(this, "User Sign-up required!", Toast.LENGTH_LONG)
             }
+        }
+
+        binding?.textViewRegister?.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+
+            startActivity(intent)
         }
     }
 }

@@ -10,13 +10,18 @@ import kotlinx.coroutines.withContext
 class UserRepository(context: Context) {
     private val db = UserDB.invoke(context)
 
-    fun getUser(email: String, password: String) = db.userDao().findUser(email, password)
-
-    fun addUser(user: User){
+    fun getUser(email: String, password: String) {
         GlobalScope.launch {
-            withContext(Dispatchers.IO){
-                db.userDao().insertUsers(user)
+            withContext(Dispatchers.IO) {
+                db.userDao().findUser(email, password)
             }
         }
     }
+        fun addUser(user: User) {
+            GlobalScope.launch {
+                withContext(Dispatchers.IO) {
+                    db.userDao().insertUsers(user)
+                }
+            }
+        }
 }

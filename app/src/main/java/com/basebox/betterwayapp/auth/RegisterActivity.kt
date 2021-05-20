@@ -12,8 +12,6 @@ import com.basebox.betterwayapp.entity.User
 
 class RegisterActivity : AppCompatActivity() {
 
-    private val TAG = "RegisterActivity"
-
     private var binding: ActivityRegisterBinding? = null
     private var email:String?  = null
     private var password:String? = null
@@ -26,13 +24,13 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding?.root)
         userRepo = UserRepository(this)
 
-        email = binding?.email?.editText?.text.toString()
-        password = binding?.password?.editText?.text.toString()
-
         binding?.btnRegister?.setOnClickListener {
 
+            email = binding?.email?.editText?.text.toString()
+            password = binding?.password?.editText?.text.toString()
+
             if(email.isNullOrBlank() && password.isNullOrBlank()){
-                Toast.makeText(this, "Email and Password Required!", Toast.LENGTH_LONG)
+                Toast.makeText(this, "Email and Password Required!", Toast.LENGTH_LONG).show()
             }else{
                 val user = User(0, email, password)
                 userRepo.addUser(user)
@@ -40,6 +38,13 @@ class RegisterActivity : AppCompatActivity() {
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
             }
+        }
+
+       val login = binding?.textViewLogin
+
+        login?.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
     }
 }
