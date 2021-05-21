@@ -9,6 +9,8 @@ import com.basebox.betterwayapp.BaseActivity
 import com.basebox.betterwayapp.databinding.ActivityLoginBinding
 import com.basebox.betterwayapp.db.UserRepository
 import com.basebox.betterwayapp.entity.User
+import kotlinx.coroutines.runBlocking
+
 
 class LoginActivity : AppCompatActivity() {
     private val TAG = "LoginActivity"
@@ -17,8 +19,6 @@ class LoginActivity : AppCompatActivity() {
     private var passwordUsed: String? = null
 
     private var binding: ActivityLoginBinding? = null
-    private var email:String?  = null
-    private var password:String? = null
     private lateinit var userRepo: UserRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,22 +29,22 @@ class LoginActivity : AppCompatActivity() {
 
         userRepo = UserRepository(this)
 
-        emailUsed = binding?.email?.editText?.text.toString()
-        passwordUsed = binding?.password?.editText?.text.toString()
-        email = "martinirex@yahoo.co.uk"
-        password = "adminpassword"
-
         binding?.btnLogin?.setOnClickListener {
-       val user = userRepo.getUser(emailUsed!!, passwordUsed!!)
-            Log.d(TAG, "Values of userEmail $emailUsed and userPassword $passwordUsed")
-            if (!user.toString().isBlank()){
-                val intent = Intent(this, BaseActivity::class.java)
 
-                startActivity(intent)
+            emailUsed = binding?.email?.editText?.text.toString()
+            passwordUsed = binding?.password?.editText?.text.toString()
 
-            }else {
-                Toast.makeText(this, "User Sign-up required!", Toast.LENGTH_LONG)
-            }
+                val user = runBlocking {
+                    userRepo.getUser(emailUsed!!, passwordUsed!!)
+                }
+                Log.d(TAG, "Values of user $user")
+                if  (user?.email != emailUsed && user?.password != passwordUsed){
+                    Toast.makeText(this, "User Sign-up required!", Toast.LENGTH_LONG).show()
+                }else {
+                    val intent = Intent(this, BaseActivity::class.java)
+
+                    startActivity(intent)
+                }
         }
 
         binding?.textViewRegister?.setOnClickListener {

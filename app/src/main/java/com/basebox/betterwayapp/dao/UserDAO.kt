@@ -15,9 +15,9 @@ interface UserDAO {
     @Query("SELECT * FROM users")
     fun getAllUsers(): List<User>
 
-    @Query("SELECT * FROM users WHERE email = :email " +
-            "AND password = :password")
-    fun findUser(email: String, password: String): User
+    @Query("SELECT * FROM users WHERE email LIKE :email " +
+            "AND password LIKE :password")
+    suspend fun findUser(email: String, password: String): User
 
     @Delete
     fun deleteUsers(vararg users: User)
